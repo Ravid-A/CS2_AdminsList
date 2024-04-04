@@ -239,6 +239,11 @@ public class Database
                 chatMenu.AddMenuOption($"{admin.Name} {group}\x01 {(admin.Hidden ? "[Hidden]":"")}", (p, c) => {}, true);
             }
 
+            if(adminsData.Count == 0)
+            {
+                chatMenu.AddMenuOption("No admins are online", (p, c) => {}, true);
+            }
+
             MenuManager.OpenChatMenu(cCSPlayerController, chatMenu);
         }
     }
