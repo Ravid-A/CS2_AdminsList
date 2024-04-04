@@ -1,0 +1,46 @@
+using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Admin;
+using CS2_AdminsList.Modules.Models;
+
+namespace CS2_AdminsList.Modules.Handlers;
+
+internal static class Commands
+{
+    public static void RegisterCommands()
+    {
+        CS2_AdminsList.Instance.AddCommand("css_admins", "Opens the admins list menu", AdminsListCommand);
+    }
+
+    public static void UnRegisterCommands()
+    {
+        CS2_AdminsList.Instance.RemoveCommand("css_admins", AdminsListCommand);
+    }
+
+    private static void AdminsListCommand(CCSPlayerController? player, CommandInfo commandInfo)
+    {
+         if (player == null)
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} This command can only be executed by a player.");
+            return;
+        }
+
+        if (!player.IsValid)
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} This command can only be executed by a valid player.");
+            return;
+        }
+
+        if(commandInfo.ArgCount > 1)
+        {
+            bool state = int.Parse(commandInfo.GetArg(1)) == 1;
+            Database.SQL_UpdateUser(player, state);
+
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} You'll now be {(state ? "":"in")}visible in the admin list");
+
+            return;
+        }
+
+        CS2_AdminsList.ShowAdminsList(player);
+    }
+}
