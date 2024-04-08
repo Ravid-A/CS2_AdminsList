@@ -10,11 +10,13 @@ internal static class Commands
     public static void RegisterCommands()
     {
         CS2_AdminsList.Instance.AddCommand("css_admins", "Opens the admins list menu", AdminsListCommand);
+        CS2_AdminsList.Instance.AddCommand("css_admins_reloadconfig", "Reloads the config file", ReloadConfigCommand);
     }
 
     public static void UnRegisterCommands()
     {
         CS2_AdminsList.Instance.RemoveCommand("css_admins", AdminsListCommand);
+        CS2_AdminsList.Instance.RemoveCommand("css_admins_reloadconfig", ReloadConfigCommand);
     }
 
     private static void AdminsListCommand(CCSPlayerController? player, CommandInfo commandInfo)
@@ -50,5 +52,37 @@ internal static class Commands
         }
 
         CS2_AdminsList.ShowAdminsList(player);
+    }
+
+    [RequiresPermissions("@css/root")]
+    private static void ReloadConfigCommand(CCSPlayerController? player, CommandInfo commandInfo)
+    {
+        if (player == null)
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} This command can only be executed by a player.");
+            return;
+        }
+
+        if (!player.IsValid)
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} This command can only be executed by a valid player.");
+            return;
+        }
+
+        CS2_AdminsList._Config = Configs.LoadConfig();
+
+        if(CS2_AdminsList._Config == null)
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} Failed to load config");
+            return;
+        }
+
+        if(!CS2_AdminsList._Config.IsValid())
+        {
+            Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} Config is not valid");
+            return;
+        }
+
+        Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} Config reloaded");
     }
 }
