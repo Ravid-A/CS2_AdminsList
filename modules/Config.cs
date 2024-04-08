@@ -24,7 +24,8 @@ public class Config
         Port = 3306;
         Groups = new()
         {
-            { "Owner", "\x03{group}\x01" },
+            { "Management", "red" },
+            { "Admin", "green" },
         };
     }
 
