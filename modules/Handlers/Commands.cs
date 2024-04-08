@@ -33,6 +33,14 @@ internal static class Commands
 
         if(commandInfo.ArgCount > 1)
         {
+            string arg = commandInfo.GetArg(1);
+
+            if(arg != "0" && arg != "1")
+            {
+                Utils.ReplyToCommand(commandInfo, $"{Utils.PREFIX} Invalid argument. Use 0 to be invisible and 1 to be visible in the admin list.");
+                return;
+            }
+
             bool state = int.Parse(commandInfo.GetArg(1)) == 1;
             Database.SQL_UpdateUser(player, state);
 
