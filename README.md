@@ -1,6 +1,6 @@
 # CS2_AdminsList
 
-WeaponsAllocator plugin for retakes written in C# (.Net) for CounterStrikeSharp.
+Admins List plugin for CSSPanel written in C# (.Net) for CounterStrikeSharp.
 
 ## Description
 
