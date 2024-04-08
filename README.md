@@ -1,6 +1,6 @@
 # CS2_AdminsList
 
-Admins List plugin for CSSPanel written in C# (.Net) for CounterStrikeSharp.
+WeaponsAllocator plugin for retakes written in C# (.Net) for CounterStrikeSharp.
 
 ## Description
 
@@ -30,6 +30,31 @@ To build the CS2_AdminsList plugin from source, follow these steps:
 4. Run the following command to build the project: `dotnet build`
 
 After running the `dotnet build` command, the project will be built, and you will find the compiled plugin files in the `./bin/Debug/net8.0` directory.
+
+## Config
+
+The config file will be generated automaticly by the plugin and will be located where the plugin is.
+
+The connection data for the database will be generated empty and the plugin will raise an exception, make sure to update it or update the one provided with the release.
+
+You can use `/admins_reloadconfig` to update the groups colors but no new sql connection will be made.
+
+### Example Config
+
+```
+{
+  "Host": "<HOST>",
+  "Database": "<DB>",
+  "User": "<USER>",
+  "Password": "<PASSWORD>",
+  "Port": 3306,
+  "Groups": {
+    "Management": "red",
+    "Admin": "green"
+  }
+}
+
+```
 
 ## Contributing
 
