@@ -1,7 +1,10 @@
+using System.Reflection;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
+
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Entities;
+using CounterStrikeSharp.API.Modules.Utils;
 using CS2_AdminsList.Modules.Models;
 
 namespace CS2_AdminsList.Modules;
@@ -65,5 +68,24 @@ internal static class Utils
             SteamID steamIdObj = GetSteamID(player.Player);
             return steamIdObj.SteamId64 == ulong.Parse(steamID);
         }) ?? null!;
+    }
+
+    public static string ReplaceWithColor(string group)
+    {
+        if (group.Contains('{'))
+		{
+			string modifiedValue = group;
+			foreach (FieldInfo field in typeof(ChatColors).GetFields())
+			{
+				string pattern = $"{{{field.Name}}}";
+				if (group.Contains(pattern, StringComparison.OrdinalIgnoreCase))
+				{
+					modifiedValue = modifiedValue.Replace(pattern, field.GetValue(null)!.ToString(), StringComparison.OrdinalIgnoreCase);
+				}
+			}
+            return modifiedValue;
+		}
+
+        return group;
     }
 }

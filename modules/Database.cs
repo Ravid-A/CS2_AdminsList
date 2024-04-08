@@ -233,10 +233,10 @@ public class Database
 
             foreach(Admin admin in adminsData)
             {
-                string group = CS2_AdminsList._Config.Groups[admin.Group];
-                group = group.Replace("{group}", $"[{admin.Group}]");
+                string color = CS2_AdminsList._Config.Groups[admin.Group];
+                string group = $"{{{color}}}[{admin.Group}]\x01";
 
-                chatMenu.AddMenuOption($"{admin.Name} {group}\x01 {(admin.Hidden ? "[Hidden]":"")}", (p, c) => {}, true);
+                chatMenu.AddMenuOption($"{admin.Name} {Utils.ReplaceWithColor(group)}\x01 {(admin.Hidden ? "[Hidden]":"")}", (p, c) => {}, true);
             }
 
             if(adminsData.Count == 0)
