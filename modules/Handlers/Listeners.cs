@@ -37,6 +37,13 @@ public static class Listeners
 
     public static void OnClientDisconnect(int playerSlot)
     {
-        CS2_AdminsList.Players.RemoveAt(CS2_AdminsList.Players.FindIndex(player => player.Player.Slot == playerSlot));
+        int index = CS2_AdminsList.Players.FindIndex(player => player.Player.Slot == playerSlot);
+        
+        if (index == -1)
+        {
+            return;
+        }
+
+        CS2_AdminsList.Players.RemoveAt(index);
     }
 }
