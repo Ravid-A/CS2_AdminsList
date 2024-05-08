@@ -59,3 +59,5 @@ You can use `/admins_reloadconfig` to update the groups colors but no new sql co
 ## Contributing
 
 Contributions to the CS2_AdminsList project are welcome. If you find any issues or have any suggestions, please open an issue or submit a pull request.
+
+[![Github All Releases](https://img.shields.io/github/downloads/Ravid-A/CS2_AdminsList/total.svg)]()
